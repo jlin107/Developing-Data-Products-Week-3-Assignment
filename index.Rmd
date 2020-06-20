@@ -1,35 +1,37 @@
 ---
-title: "Developing Data Products Week 3 Assignment"
+title: "Week 3 Assignment"
 author: "John Lin"
 date: "6/20/2020"
 output: ioslides_presentation
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(ggplot2)
+library(plotly)
 ```
 
-## R Markdown
+## Dataset
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+The `ToothGrowth` dataset contains information about the length of odontoblasts in 60 guinea pigs. Each animal received one of three dose levels of vitamin C (0.5, 1, or 2 mg/day) by one of two delivery methods, orange juice (OJ) or ascorbic acid (VC).
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+This presentation will show a scatterplot comparing the effects of dose and delivery method on tooth growth in guinea pigs.
 
-## Slide with Bullets
+## Code
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-## Slide with R Output
-
-```{r cars, echo = TRUE}
-summary(cars)
+```{r code, echo = TRUE}
+levels(ToothGrowth$supp) <- c("Orange Juice", "Ascorbic Acid")
+p <- ggplot(ToothGrowth, aes(x = factor(dose), y = len, color = supp)) + 
+  geom_point() + 
+  ggtitle("The Effect of Vitamin C on Tooth Growth in Guinea Pigs") + 
+  xlab("Dose (mg/day)") +
+  ylab("Tooth Length") + 
+  scale_color_discrete(name = "Delivery Method")
+p <- ggplotly(p)
 ```
 
-## Slide with Plot
+## Plot
 
-```{r pressure}
-plot(pressure)
+```{r plot, echo = FALSE}
+p
 ```
-
